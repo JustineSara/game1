@@ -1,23 +1,21 @@
-# Scittle 2d Gamedev Template
+# Game 1: Exploring
 
-A template for creating 2D games for the web using [Scittle](https://github.com/babashka/scittle), [Reagent](https://reagent-project.github.io/), and [css-gameview](https://github.com/chr15m/css-gameview).
+## Set up
 
-[![Screenshot](./doc/screenshot.png)](https://chr15m.github.io/scittle-template-2d-game/)
+I use the [Scittle 2d Gamedev Template][2dTemp].
 
-[Demo](https://chr15m.github.io/scittle-template-2d-game/)
+I also use [Nix-shell] to manage the tools I need. In particuar `nodejs` which I need for the `nmp` command.
 
-This template provides a basic starter structure for a game with a title screen, game screen, and other pages like instructions, settings, and credits.
+I use [cljs-josh] to have hot-reloading, which means you can change your program without losing the game-state. It is installed with:
+```
+npm install cljs-josh
+```
 
-## How it works
+And run with:
+```
+npx josh
+```
 
-- `index.html` is the main page, it loads Scittle, React, Reagent and `css-gameview`.
-- Scittle runs ClojureScript code from `main.cljs` directly in the browser.
-- Reagent is used to create UI components, which are defined in `main.cljs`.
-- A global `state` atom holds the application state, including the current screen being displayed.
-- `css-gameview` is used for positioning entities in the game screen. See `component:game` in `main.cljs`.
-
-## Customizing
-
-- Change `game-title` in `main.cljs` to your game's title.
-- Modify `component:game` to build your game scene.
-- Add your own game logic and components to `main.cljs`.
+[2dTemp][https://github.com/chr15m/scittle-template-2d-game#]
+[Nix-shell][https://cuddly-octo-palm-tree.com/posts/2021-12-19-tyska-nix-shell/]
+[cljs-josh][https://github.com/chr15m/cljs-josh]
