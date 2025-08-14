@@ -12,18 +12,46 @@
       :title)))
 
 (defonce state (r/atom {:screen (screen-from-hash)
-                        :time 0}))
+                        :time 0
+                        :ArrowRight false
+                        :pos-x 0}))
+
+(def speed-factor 0.001)
+
+(defn update-state
+  [state t]
+  (if (:ArrowRight state)
+    (let [deltaT (- t (:time state))
+          deltaX (* speed-factor deltaT)
+          newX (+ (:pos-x state) deltaX)]
+      (assoc state :pos-x (if (<= newX 7.5) newX (* newX -1))))
+    state))
+
 
 (defn timeloop
   []
   (let [raf js/window.requestAnimationFrame
         ;; raf is a function that says "do this after rendering hte screen"
         raf-loop (fn ! [t]
+                   (swap! state update-state t)
                    (swap! state assoc :time t)
                    (raf !))]
     (raf-loop 0)))
 
 (timeloop)
+
+(.addEventListener js/document "keydown"
+  (fn [e]
+    (case (.-key e)
+      "ArrowRight" (swap! state assoc :ArrowRight true)
+      :ignore)))
+
+(.addEventListener js/document "keyup"
+  (fn [e]
+    (case (.-key e)
+      "ArrowRight" (swap! state assoc :ArrowRight false)
+      :ignore)))
+
 
 ; set up basic history popstate management
 (.addEventListener js/window "popstate"
@@ -64,7 +92,7 @@
       :style
       {"--w" 1
        "--h" 1
-       "--x" 0
+       "--x" (:pos-x @state)
        "--y" 0
        "--o" 1.
        "--r" (str (/ (:time @state) 10) "deg")}}]]])
