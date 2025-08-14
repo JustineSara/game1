@@ -11,7 +11,19 @@
       (keyword (subs frag 1))
       :title)))
 
-(defonce state (r/atom {:screen (screen-from-hash)}))
+(defonce state (r/atom {:screen (screen-from-hash)
+                        :time 0}))
+
+(defn timeloop
+  []
+  (let [raf js/window.requestAnimationFrame
+        ;; raf is a function that says "do this after rendering hte screen"
+        raf-loop (fn ! [t]
+                   (swap! state assoc :time t)
+                   (raf !))]
+    (raf-loop 0)))
+
+(timeloop)
 
 ; set up basic history popstate management
 (.addEventListener js/window "popstate"
@@ -53,7 +65,9 @@
       {"--w" 1
        "--h" 1
        "--x" 0
-       "--y" 0}}]]])
+       "--y" 0
+       "--o" 1.
+       "--r" (str (/ (:time @state) 10) "deg")}}]]])
 
 (defn component:back-button []
   [:a.button.cta {:href "#"
