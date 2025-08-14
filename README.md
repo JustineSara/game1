@@ -16,6 +16,6 @@ And run with:
 npx josh
 ```
 
-[2dTemp][https://github.com/chr15m/scittle-template-2d-game#]
-[Nix-shell][https://cuddly-octo-palm-tree.com/posts/2021-12-19-tyska-nix-shell/]
-[cljs-josh][https://github.com/chr15m/cljs-josh]
+[2dTemp]: https://github.com/chr15m/scittle-template-2d-game#
+[Nix-shell]: https://cuddly-octo-palm-tree.com/posts/2021-12-19-tyska-nix-shell/
+[cljs-josh]: https://github.com/chr15m/cljs-josh
